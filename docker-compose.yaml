@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  testapi:
+    image: testapi
+    container_name: testapi
+    build: .
+    ports:
+      - 4000:4000
+
+  caddy:
+    container_name: caddy
+    image: abdulsalamdocker/caddy:1.0.3-no-stats
+    restart: unless-stopped
+    env_file:
+      - ./env/caddy.env
+    volumes:
+      - ./Caddyfile:/home/fausto/Documents:ro
+      - $HOME/.caddy:/home/fausto/Documents/.caddy
+    ports:
+      - 80:80
+      - 443:443
+      - 2015:2015
+
+  
